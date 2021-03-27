@@ -1,6 +1,6 @@
 # Simple React Chat
 
-## Intall
+## Install
 ```
 $ make deps-install
 ```
