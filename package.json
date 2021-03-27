@@ -1,0 +1,26 @@
+{
+  "name": "react-socket",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "server": "yarn --cwd server dev",
+    "client": "yarn --cwd client start",
+    "start": "concurrently \"yarn server\" \"yarn client\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/letzabelin/react-socket.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/letzabelin/react-socket/issues"
+  },
+  "homepage": "https://github.com/letzabelin/react-socket#readme",
+  "dependencies": {
+    "concurrently": "^6.0.0",
+    "nanoid": "^3.1.22"
+  }
+}
