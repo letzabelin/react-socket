@@ -5,8 +5,10 @@ import registerMessageHandlers from './handlers/messageHandlers.js';
 import registerUserHandlers from './handlers/userHandlers.js';
 
 const server = http.createServer();
+
 const PORT = 5000;
-const socket = new io.Server(server, {
+
+const socketIO = new io.Server(server, {
   cors: {
     origin: '*',
   },
@@ -20,8 +22,8 @@ const onConnection = (socket) => {
 
   socket.join(roomId);
 
-  registerMessageHandlers(socket, socket);
-  registerUserHandlers(socket, socket);
+  registerMessageHandlers(socketIO, socket);
+  registerUserHandlers(socketIO, socket);
 
   socket.on('disconnect', () => {
     console.log('User disconnect');
@@ -29,7 +31,7 @@ const onConnection = (socket) => {
   });
 };
 
-socket.on('connection', onConnection);
+socketIO.on('connection', onConnection);
 
 server.listen(PORT, () => {
   console.log(`Server ready. Port: ${PORT}`);

@@ -10,16 +10,16 @@ db.defaults({
     {
       messageId: '1',
       userId: '1',
-      senderName: 'Jack',
+      senderName: 'Bob',
       messageText: 'What are you doing here?',
-      createdAt: '2021-03-23',
+      createdAt: '2021-01-14',
     },
     {
       messageId: '2',
       userId: '2',
-      senderName: 'Mary',
-      messageText: 'Go back',
-      createdAt: '2021-03-24',
+      senderName: 'Alice',
+      messageText: 'Go back to work!',
+      createdAt: '2021-02-15',
     },
   ],
 }).write();
@@ -27,6 +27,7 @@ db.defaults({
 export default (io, socket) => {
   const getMessages = () => {
     const messages = db.get('messages').value();
+
     io.in(socket.roomId).emit('messages', messages);
   };
 
@@ -37,7 +38,7 @@ export default (io, socket) => {
         createdAt: new Date(),
         ...message,
       })
-      .white();
+      .write();
 
     getMessages();
   };

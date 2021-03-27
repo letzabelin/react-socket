@@ -1,12 +1,6 @@
 const users = {
-  1: {
-    username: 'Mary',
-    online: false,
-  },
-  2: {
-    username: 'Jack',
-    online: false,
-  },
+  1: { username: 'Alice', online: false },
+  2: { username: 'Bob', online: false },
 };
 
 export default (io, socket) => {
@@ -20,7 +14,6 @@ export default (io, socket) => {
     } else {
       users[userId].online = true;
     }
-
     getUsers();
   };
 
@@ -31,5 +24,5 @@ export default (io, socket) => {
 
   socket.on('user:get', getUsers);
   socket.on('user:add', addUser);
-  socket.on('user:remove', removeUser);
+  socket.on('user:leave', removeUser);
 };

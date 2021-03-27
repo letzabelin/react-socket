@@ -13,6 +13,13 @@
       "senderName": "Mary",
       "messageText": "Go back",
       "createdAt": "2021-03-24"
+    },
+    {
+      "messageId": "GHsnmosV",
+      "createdAt": "2021-03-27T21:29:24.663Z",
+      "userId": "_fJEVaZK",
+      "messageText": "Hello",
+      "senderName": "Andrew"
     }
   ]
 }
