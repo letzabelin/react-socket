@@ -1,0 +1,54 @@
+import { nanoid } from 'nanoid';
+import low from 'lowdb';
+import FileSync from 'lowdb/adapters/FileSync.js';
+
+const adapter = new FileSync('./db/messages.json');
+const db = low(adapter);
+
+db.defaults({
+  messages: [
+    {
+      messageId: '1',
+      userId: '1',
+      senderName: 'Jack',
+      messageText: 'What are you doing here?',
+      createdAt: '2021-03-23',
+    },
+    {
+      messageId: '2',
+      userId: '2',
+      senderName: 'Mary',
+      messageText: 'Go back',
+      createdAt: '2021-03-24',
+    },
+  ],
+}).write();
+
+export default (io, socket) => {
+  const getMessages = () => {
+    const messages = db.get('messages').value();
+    io.in(socket.roomId).emit('messages', messages);
+  };
+
+  const addMessage = (message) => {
+    db.get('messages')
+      .push({
+        messageId: nanoid(8),
+        createdAt: new Date(),
+        ...message,
+      })
+      .white();
+
+    getMessages();
+  };
+
+  const removeMessage = (messageId) => {
+    db.get('messages').remove({ messageId }).write();
+
+    getMessages();
+  };
+
+  socket.on('message:get', getMessages);
+  socket.on('message:add', addMessage);
+  socket.on('message:remove', removeMessage);
+};
